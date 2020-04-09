@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typical from 'react-typical';
 import Button from "@material-ui/core/Button";
-import Eggplant from '../../public/eggplant.png';
+import Eggplant from '../Static/eggplant.png'
 import Particles from 'react-particles-js';
 import ImgDetection from "./ImgDetection";
 
