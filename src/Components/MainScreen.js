@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Typical from 'react-typical';
 import Button from "@material-ui/core/Button";
 import Eggplant from './eggplant.png';
@@ -25,12 +24,6 @@ const particlesParam = {
         }
     }
 };
-
-const theme = createMuiTheme({
-    typography: {
-        fontFamily: '"Apple Color Emoji"'
-    },
-});
 
 const useStyles = makeStyles({
     imgStyle:{

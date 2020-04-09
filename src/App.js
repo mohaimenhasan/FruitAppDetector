@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MainScreen from "./Components/ImgDetection";
+import MainScreen from "./Components/MainScreen";
 import './App.css';
 
 class App extends Component{
