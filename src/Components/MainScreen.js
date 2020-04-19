@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typical from 'react-typical';
 import Button from "@material-ui/core/Button";
-import Eggplant from '../Static/eggplant.png'
+import Eggplant from '../Static/fruits.png'
 import Particles from 'react-particles-js';
 import ImgDetection from "./ImgDetection";
 
 const particlesParam = {
     "particles": {
         "number": {
-            "value": 50
+            "value": 200
         },
         "size": {
             "value": 3

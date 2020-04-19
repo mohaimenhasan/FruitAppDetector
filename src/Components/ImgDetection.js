@@ -1,11 +1,21 @@
 import React, {Component} from "react";
-import Camera from 'react-html5-camera-photo';
+import { Camera } from "./camera";
+import HomeIcon from '@material-ui/icons/Home';
 import {makeStyles} from "@material-ui/core/styles";
-import 'react-html5-camera-photo/build/css/index.css';
+import CameraIcon from '@material-ui/icons/Camera';
+import Button from '@material-ui/core/Button';
+import MainScreen from "./MainScreen";
 
-const useStyles = makeStyles({
-
-});
+const useStyles = makeStyles((theme)=>({
+    button: {
+        margin: theme.spacing(3),
+    },
+    cameraStyle: {
+        borderStyle: "dotted",
+        borderColor: "red",
+        borderWidth: 5
+    }
+}));
 
 function withMyHook(Component){
     return function WrappedComponent(props){
@@ -18,13 +28,43 @@ class ImgDetection extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            cameraColor: "primary",
+            cameraText: "Turn Camera On",
+            cameraOn: false,
+            photoData: null
+        }
+    }
 
+    changeToMain(event){
+        this.props.appContext.setState({
+            currentScreen: <MainScreen appContext={this.props.appContext}/>
+        })
+    }
+
+
+    flipCamera(){
+        if(this.state.cameraOn === false){
+            this.setState({
+                cameraText: "Turn Camera Off",
+                cameraOn: true,
+                cameraColor: "secondary"
+            })
+        }else{
+            this.setState({
+                cameraColor: "primary",
+                cameraText: "Turn Camera On",
+                cameraOn: false
+            })
         }
     }
 
     handleTakePhoto (dataUri) {
         // Do stuff with the photo...
-        console.log(dataUri);
+        //console.log(dataUri);
+        this.setState({
+            photoData: dataUri
+        });
+        console.log(this.state.photoData);
     }
 
     handleTakePhotoAnimationDone (dataUri) {
@@ -43,16 +83,43 @@ class ImgDetection extends Component{
     handleCameraStop () {
         console.log('handleCameraStop');
     }
+
+    clearPhotoData (){
+        this.setState({
+            photoData: null
+        })
+    }
+
     render() {
+        const classes = this.props.classes;
         return(
             <div>
-                <Camera
-                    onTakePhoto = { (dataUri) => { this.handleTakePhoto(dataUri); } }
-                    onTakePhotoAnimationDone = { (dataUri) => { this.handleTakePhotoAnimationDone(dataUri); } }
-                    onCameraError = { (error) => { this.handleCameraError(error); } }
-                    onCameraStart = { (stream) => { this.handleCameraStart(stream); } }
-                    onCameraStop = { () => { this.handleCameraStop(); } }
-                />
+                {this.state.cameraOn && (
+                    <Camera
+                        onCapture={imgData => this.handleTakePhoto(imgData)}
+                        onClear={()=> this.clearPhotoData()}
+                    />
+                )}
+                <Button
+                    variant="contained"
+                    color={this.state.cameraColor}
+                    size="large"
+                    className={classes.button}
+                    startIcon={<CameraIcon />}
+                    onClick={(event) => this.flipCamera(event)}
+                >
+                    {this.state.cameraText}
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    className={classes.button}
+                    startIcon={<HomeIcon />}
+                    onClick={(event) => this.changeToMain(event)}
+                >
+                    Back to Home Screen
+                </Button>
             </div>
         );
     }
