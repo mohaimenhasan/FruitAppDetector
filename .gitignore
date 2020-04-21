@@ -28,3 +28,7 @@ yarn-error.log*
 
 # backend
 apiendpoint/node_modules
+
+
+# backend API keys
+apiendpoint/apikeys.json
